@@ -51,10 +51,9 @@ class registerSchema(object):
             resource: {
                 'schema': {},
                 'datasource': {'source': cls_.__name__},
-                'item_lookup': True,
-                # TODO: Make these respect the ID_FIELD config of Eve
-                'item_lookup_field': '_id',
-                'item_url': 'regex("[0-9]+")'
+                'item_lookup': config.ITEM_LOOKUP,
+                'item_lookup_field': config.ID_FIELD,
+                'item_url': config.ITEM_URL,
             }
         }
         projection = domain[resource]['datasource']['projection'] = {}
