@@ -55,8 +55,15 @@ def sqla_object_to_dict(obj, fields, resource):
             data_relation = config.DOMAIN[resource]['schema'][field]['data_relation']
             foreign_resource = data_relation['resource']
             foreign_embeddable = data_relation['embeddable']
-            foreign_fields = config.DOMAIN[foreign_resource]['schema'].keys()
-        except KeyError:
+            foreign_fields = list(config.DOMAIN[foreign_resource]['schema'].keys())
+            for field in fields:
+                a = field.split('.')
+                if len(a) > 2 and (a[0] == foreign_resource):
+                    foreign_fields.append(a[1:].join('.'))
+                    from pprint import pprint
+                    pprint("fields: %s > %s" % (foreign_resource, foreign_fields))
+        except KeyError as e:
+            print(e)
             foreign_resource = None
             foreign_embeddable = False
             foreign_fields = []
