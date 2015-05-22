@@ -129,7 +129,7 @@ class registerSchema(object):
     @staticmethod
     def register_column(prop, schema, projection):
         if hasattr(prop, 'collection_class'):
-            if hasattr(prop.target, 'name'):
+            if (prop.lazy != 'dynamic') and (hasattr(prop.target, 'name')):
                 schema['data_relation'] = \
                     {'resource': prop.target.name, 'embeddable': True}
                 schema['type'] = 'objectid'
