@@ -50,6 +50,11 @@ def lookup_foreign_resource(field, fields, resource):
             for k in config.DOMAIN[foreign_resource]['schema'].keys():
                 if 'data_relation' not in config.DOMAIN[foreign_resource]['schema'][k]:
                     foreign_fields.append(k)
+            # Subkey
+            for f in fields:
+                a = f.split('.')
+                if len(a) > 2 and (a[0] == foreign_resource):
+                    foreign_fields.append(a[1:].join('.'))
     except KeyError:
         # NOTE(Gonéri): Probably a missing key in the config.DOMAIN structure
         pass
