@@ -23,3 +23,7 @@ class TestValidator(unittest.TestCase):
 
     def test_allow_unknown_true(self):
         self.assertTrue(self.validator.allow_unknown)
+
+    def tearDown(self):
+        del config.DOMAIN
+        super(TestValidator, self).tearDown()
